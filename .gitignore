@@ -1,0 +1,8 @@
+# Declare all files or folders discarted
+*
+
+# Discart ignore files
+!.env.example
+!docker-compose.yml
+!.gitignore
+!README.md
