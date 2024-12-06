@@ -37,7 +37,7 @@ Para la configuración del PgAdmin las variables a completar son las siguientes:
 ### Paso 2. Levantar el contenedor
 
 Para levantar el contenedor es necesario usar el siguiente comando:
-> docker compose up --build --force-recreate
+> docker compose up --build --force-recreate -d
 
 Se agrega `--force-recreate` por si ocurrio algun problema esto intentara crearlo nuevamente todo el contenedor.
 
