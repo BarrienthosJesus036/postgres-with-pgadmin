@@ -5,7 +5,7 @@ services:
           restart: always
           shm_size: 512m
           ports:
-               - "${DB_POSTGRES_PORT}:5432"
+               - "127.0.0.1:${DB_POSTGRES_PORT}:5432"
           environment:
                POSTGRES_DB: ${DB_POSTGRES_DATABASE}
                POSTGRES_USER: ${DB_POSTGRES_USER}
