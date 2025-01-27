@@ -20,7 +20,6 @@ Para la configuración de la base de datos las variables a completar son las sig
 
 | Variable                  | Descripción                               | Links directos                                      |
 |---------------------------|-------------------------------------------|-----------------------------------------------------|
-| DB_POSTGRES_VERSION       | Version de postgres a utilizar            | [Versiones](https://hub.docker.com/_/postgres/tags) |
 | DB_POSTGRES_DATABASE      | Nombre de la base de datos a crear        | N/A                                                 |
 | DB_POSTGRES_PORT          | Puerto a exponer en el equipo             | N/A                                                 |
 | DB_POSTGRES_USER          | Usuario por defecto en la base de datos   | N/A                                                 |
@@ -30,7 +29,6 @@ Para la configuración del PgAdmin las variables a completar son las siguientes:
 
 | Variable                  | Descripción                                   | Links directos                                      |
 |---------------------------|-----------------------------------------------|-----------------------------------------------------|
-| MANAGE_PGADMIN_PORT_EXPOSE| Puerto a exponer el pgadmin (en el navegador) | N/A                                                 |
 | MANAGE_PGADMIN_EMAIL      | Correo por defecto de acceso al pgadmin       | N/A                                                 |
 | MANAGE_PGADMIN_PASSWORD   | Contraseña por defecto de acceso al pgadmin   | N/A                                                 |
 

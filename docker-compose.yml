@@ -1,7 +1,7 @@
 services:
      db:
           container_name: postgres
-          image: postgres:${DB_POSTGRES_VERSION}
+          image: postgres:17.2
           restart: always
           shm_size: 512m
           ports:
@@ -14,6 +14,15 @@ services:
           volumes:
                - db_postgres:/var/lib/postgresql/data
 
+     redis:
+          image: redis:7.4.2
+          container_name: redis
+          restart: always
+          ports:
+               - "127.0.0.1:${DB_REDIS_PORT}:6379"
+          volumes:
+               - db_redis:/data
+
      pgadmin:
           image: dpage/pgadmin4:8.13
           container_name: pgadmin
@@ -22,8 +31,21 @@ services:
                PGADMIN_DEFAULT_EMAIL: ${MANAGE_PGADMIN_EMAIL}
                PGADMIN_DEFAULT_PASSWORD: ${MANAGE_PGADMIN_PASSWORD}
           ports:
-               - "${MANAGE_PGADMIN_PORT_EXPOSE}:80"
+               - "8000:80"
           volumes:
                - ./backups:/var/lib/pgadmin/storage
+          depends_on:
+               - db
+
+     adminer:
+          image: adminer
+          restart: always
+          ports:
+               - "8001:8080"
+          depends_on:
+               - db
+               - redis
+
 volumes:
      db_postgres:
+     db_redis:
