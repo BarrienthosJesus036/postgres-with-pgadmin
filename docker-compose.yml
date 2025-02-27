@@ -2,8 +2,9 @@ services:
      db:
           container_name: postgres
           image: postgres:17.2
-          restart: always
-          shm_size: 512m
+          restart: unless-stopped
+          mem_limit: 2GB
+          cpus: 1.0
           ports:
                - "127.0.0.1:${DB_POSTGRES_PORT}:5432"
           environment:
@@ -17,7 +18,9 @@ services:
      redis:
           image: redis:7.4.2
           container_name: redis
-          restart: always
+          restart: unless-stopped
+          mem_limit: 1GB
+          cpus: 0.5
           ports:
                - "127.0.0.1:${DB_REDIS_PORT}:6379"
           volumes:
@@ -26,7 +29,7 @@ services:
      pgadmin:
           image: dpage/pgadmin4:8.13
           container_name: pgadmin
-          restart: always
+          restart: unless-stopped
           environment:
                PGADMIN_DEFAULT_EMAIL: ${MANAGE_PGADMIN_EMAIL}
                PGADMIN_DEFAULT_PASSWORD: ${MANAGE_PGADMIN_PASSWORD}
@@ -39,13 +42,34 @@ services:
 
      adminer:
           image: adminer
-          restart: always
+          container_name: adminer
+          restart: unless-stopped
           ports:
                - "8001:8080"
           depends_on:
                - db
                - redis
 
+     minio:
+          image: minio/minio:RELEASE.2025-02-18T16-25-55Z-cpuv1
+          container_name: minio
+          environment:
+               MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+               MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
+          volumes:
+               - minio:/data
+          ports:
+               - "9000:9000"
+               - "9001:9001"
+          command: server /data --console-address ":9001"
+          restart: unless-stopped
+          deploy:
+               resources:
+                    limits:
+                         memory: 4GB
+
 volumes:
      db_postgres:
      db_redis:
+     minio:
+          driver: local
